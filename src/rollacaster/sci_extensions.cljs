@@ -1,8 +1,9 @@
 (ns rollacaster.sci-extensions
-    (:require [rollacaster.custom]
-              [jsxgraph.sci]
-              [sci.ctx-store]
-              [sci.core :as sci]))
+    (:require [jsxgraph.sci]
+              [mathlive.sci]
+              [rollacaster.custom]
+              [sci.core :as sci]
+              [sci.ctx-store]))
 
 ;; ## SCI Environment Extension
 ;;
@@ -15,6 +16,7 @@
 ;; This first section installs all `JSXGraph.cljs` namespaces into the project:
 
 (jsxgraph.sci/install!)
+(mathlive.sci/install!)
 
 ;; See [`JSXGraph.cljs` via SCI](https://jsxgraph.mentat.org/#jsxgraph.cljs-via-sci) for
 ;; more details.

@@ -1,10 +1,11 @@
 (ns user
   (:require [mentat.clerk-utils.build :as b]
-            [mentat.clerk-utils.css :as css]
-            [nextjournal.clerk :as clerk]))
+            [mentat.clerk-utils.css :as css]))
 
 (css/set-css!
- "https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css")
+ "https://cdn.jsdelivr.net/npm/jsxgraph@1.5.0/distrib/jsxgraph.css"
+ "https://unpkg.com/mathlive@0.85.1/dist/mathlive-static.css"
+ "https://unpkg.com/mathlive@0.85.1/dist/mathlive-fonts.css")
 
 (def index
   "notebooks/rollacaster/pim_book.clj")
