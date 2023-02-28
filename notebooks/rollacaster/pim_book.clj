@@ -12,56 +12,39 @@
  '(require '[mathlive.core :as ml])
  '(require '[rollacaster.custom :as custom]))
 
-^{:nextjournal.clerk/visibility {:code :hide :result :hide}}
-(show-sci
- [:style "
-math-field {
-  font-size: 24px;
-}
-math-field:focus-within {
-  outline: none;
-}"])
-
 ;; ## Theorem 2.2.
 
 ^{:nextjournal.clerk/visibility {:code :hide :result :show}}
 (show-sci
- [:div.flex.flex-wrap.items-center.gap-2
-  [:span "For any integer"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "n >= 0"]
-  [:span "and any list of"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "n + 1"]
-  [:span "points"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "(x_1,y_1),(x_2,y_2),...,(x_{n+1},y_{n+1})"]
-  [:span "in"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "\\reals^2"]
-  [:span "with"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "x_1 < x_2 < ... < x_{n+1}"]
-  [:span "there exits a unique polynomial "]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "p(x)"]
-  [:span "of degree at most n such that"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "p(x_i) = y_i"]
-  [:span "for all"]
-  [:math-field {:read-only true :style {:display "inline-block"}}
-   "i"]
-  [:span "."]])
-
-^{:nextjournal.clerk/visibility {:code :hide :result :show}}
-(show-sci
- (reagent/with-let
-   [!tex      (reagent/atom "\\sum_{i=1}^{n+1}y_i\\left(\\prod_{j\\ne i}\\frac{x-x_j}{x_i-x_j}\\right)")
-    on-change #(reset! !tex (.getValue (.-target %)))]
-   [:<>
-    [ml/Mathfield
-     {:value     @!tex
-      :on-change on-change}]]))
+ [:<>
+  [:div.flex.flex-wrap.items-center.gap-2.mb-4
+   [:span "For any integer"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "n >= 0"]
+   [:span "and any list of"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "n + 1"]
+   [:span "points"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "(x_1,y_1),(x_2,y_2),...,(x_{n+1},y_{n+1})"]
+   [:span "in"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "\\reals^2"]
+   [:span "with"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "x_1 < x_2 < ... < x_{n+1}"]
+   [:span "there exits a unique polynomial "]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "p(x)"]
+   [:span "of degree at most n such that"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "p(x_i) = y_i"]
+   [:span "for all"]
+   [:math-field {:read-only true :style {:display "inline-block"}}
+    "i"]
+   [:span "."]]
+  [:math-field {:read-only true}
+   "\\sum_{i=1}^{n+1}y_i\\left(\\prod_{j\\ne i}\\frac{x-x_j}{x_i-x_j}\\right)"]])
 
 ^{::clerk/sync true
   ::clerk/visibility {:code :hide :result :hide}}
@@ -85,6 +68,6 @@ math-field:focus-within {
                          (remove #{x_i} (map first points))))))
             0
             points))]
-   [jsx/JSXGraph {:boundingbox [0 5 5 -0.2] :axis true}
+   [jsx/JSXGraph {:boundingbox [0 5 5 -0.5] :axis true}
     [jsx/FunctionGraph {:parents [f 0 5]}]
     [custom/Points {:points @!points :update-points (fn [k p] (swap! !points assoc k p))}]]))
