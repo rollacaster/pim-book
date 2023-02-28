@@ -85,6 +85,6 @@ math-field:focus-within {
                          (remove #{x_i} (map first points))))))
             0
             points))]
-   [jsx/JSXGraph {:boundingbox [0 5 5 -0.3] :axis true}
+   [jsx/JSXGraph {:boundingbox [0 5 5 -0.2] :axis true}
     [jsx/FunctionGraph {:parents [f 0 5]}]
     [custom/Points {:points @!points :update-points (fn [k p] (swap! !points assoc k p))}]]))
