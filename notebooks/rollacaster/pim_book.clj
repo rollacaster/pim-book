@@ -66,11 +66,15 @@ math-field:focus-within {
 ^{::clerk/sync true
   ::clerk/visibility {:code :hide :result :hide}}
 (defonce !points
-  (atom [[1 2] [2 3] [3 1] [3.5 1]]))
+  (atom {:a [1 2]
+         :b [2 3]
+         :c [3 1]
+         :d [3.5 1]}))
 
 ^{:nextjournal.clerk/visibility {:code :hide :result :show}}
 (show-sci
- (let [f (fn [x]
+ (let [points (vals @!points)
+       f (fn [x]
            (reduce
             (fn [result [x_i y_i]]
               (+ result
@@ -78,9 +82,9 @@ math-field:focus-within {
                          (fn [result x_j]
                            (* result (/ (- x x_j) (- x_i x_j))))
                          1
-                         (remove #{x_i} (map first @!points))))))
+                         (remove #{x_i} (map first points))))))
             0
-            @!points))]
-   [jsx/JSXGraph {:boundingbox [-5 5 5 -5] :axis true}
+            points))]
+   [jsx/JSXGraph {:boundingbox [0 5 5 -0.3] :axis true}
     [jsx/FunctionGraph {:parents [f 0 5]}]
-    [custom/Points {:points @!points :update-points (fn [idx p] (swap! !points assoc idx p))}]]))
+    [custom/Points {:points @!points :update-points (fn [k p] (swap! !points assoc k p))}]]))

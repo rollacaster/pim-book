@@ -18,10 +18,13 @@
 (defn Points [{:keys [points update-points]}]
    [:<>
     (->> points
+         (sort-by (comp first second))
          (map-indexed
-          (fn [idx p]
+          (fn [idx [k p]]
             ^{:key p}
-            [jsx/Point {:size 4 :parents p :on {:update (fn [^js event]
-                                                          (let [[_ x y] (.-usrCoords event)]
-                                                            (update-points idx [(parse-double (.toFixed x 2))
-                                                                                (parse-double (.toFixed y 2))])))}}])))])
+            [jsx/Point {:name (str "(x_" idx " y_" idx ")")
+                        :size 4 :parents p
+                        :on {:update (fn [^js event]
+                                       (let [[_ x y] (.-usrCoords event)]
+                                         (update-points k [(parse-double (.toFixed x 2))
+                                                           (parse-double (.toFixed y 2))])))}}])))])
