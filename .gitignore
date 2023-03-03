@@ -45,3 +45,4 @@ public/js
 .clerk/
 .cache/
 public
+.clj-kondo
